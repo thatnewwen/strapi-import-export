@@ -87,10 +87,10 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
       .upload(
         {
           files: {
-            name: file.name,
-            type: file.type,
+            originalFilename: file.name,
+            mimetype: file.type,
             size: file.size,
-            path: file.path,
+            filepath: file.path,
           },
           data: {
             fileInfo: {
@@ -123,10 +123,10 @@ const fetchFile = async (url) => {
     const fileData = getFileDataFromRawUrl(url);
     const filePath = await writeFile(fileData.name, buffer);
     return {
-      name: fileData.name,
-      type: contentType,
+      originalFilename: fileData.name,
+      mimetype: contentType,
       size: contentLength,
-      path: filePath,
+      filepath: filePath,
     };
   } catch (error) {
     throw new Error(`Tried to fetch file from url ${url} but failed with error: ${error.message}`);
