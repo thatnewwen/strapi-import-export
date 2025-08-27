@@ -110157,6 +110157,7 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
   let file2;
   try {
     file2 = await fetchFile(url);
+    console.log(file2, "file2")
     let [uploadedFile] = await strapi.plugin("upload").service("upload").upload(
       {
         files: {
@@ -110277,7 +110278,6 @@ const getFileDataFromRawUrl = (rawUrl) => {
 const importData = async (dataRaw, { slug, format, user, idField }) => {
   let data = await parseInputData(format, dataRaw, { slug });
   data = toArray$2(data);
-  console.log("importDatas", slug, format, user, idField);
   let res;
   if (slug === CustomSlugs.MEDIA) {
     res = await importMedia$1(data, { user });
