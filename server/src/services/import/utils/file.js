@@ -87,14 +87,14 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
       .upload(
         {
           files: {
-            originalFilename: file.name,
-            mimetype: file.type,
+            originalFilename: file.originalFilename,
+            mimetype: file.mimetype,
             size: file.size,
-            filepath: file.path,
+            filepath: file.filepath,
           },
           data: {
             fileInfo: {
-              name: name || file.name,
+              name: name || file.originalFilename,
               alternativeText: alternativeText || '',
               caption: caption || '',
             },
@@ -108,8 +108,8 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
     strapi.log.error(err);
     throw err;
   } finally {
-    if (file?.path) {
-      deleteFileIfExists(file?.path);
+    if (file?.filepath) {
+      deleteFileIfExists(file?.filepath);
     }
   }
 };

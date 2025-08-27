@@ -110160,14 +110160,14 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
     let [uploadedFile] = await strapi.plugin("upload").service("upload").upload(
       {
         files: {
-          originalFilename: file2.name,
-          mimetype: file2.type,
+          originalFilename: file2.originalFilename,
+          mimetype: file2.mimetype,
           size: file2.size,
-          filepath: file2.path
+          filepath: file2.filepath
         },
         data: {
           fileInfo: {
-            name: name || file2.name,
+            name: name || file2.originalFilename,
             alternativeText: alternativeText || "",
             caption: caption || ""
           }
@@ -110180,8 +110180,8 @@ const importFile = async ({ url, name, alternativeText, caption }, user) => {
     strapi.log.error(err);
     throw err;
   } finally {
-    if (file2?.path) {
-      deleteFileIfExists(file2?.path);
+    if (file2?.filepath) {
+      deleteFileIfExists(file2?.filepath);
     }
   }
 };
